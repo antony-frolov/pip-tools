@@ -103,6 +103,7 @@ def _determine_linesep(
 @options.output_file
 @options.newline
 @options.allow_unsafe
+@options.ignore_installed
 @options.strip_extras
 @options.generate_hashes
 @options.reuse_hashes
@@ -148,6 +149,7 @@ def cli(
     output_file: LazyFile | IO[Any] | None,
     newline: str,
     allow_unsafe: bool,
+    ignore_installed: bool,
     strip_extras: bool | None,
     generate_hashes: bool,
     reuse_hashes: bool,
@@ -473,6 +475,7 @@ def cli(
             clear_caches=rebuild,
             allow_unsafe=allow_unsafe,
             unsafe_packages=set(unsafe_package),
+            ignore_installed=ignore_installed,
         )
         results = resolver.resolve(max_rounds=max_rounds)
         hashes = resolver.resolve_hashes(results) if generate_hashes else None

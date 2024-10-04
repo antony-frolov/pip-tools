@@ -212,6 +212,12 @@ allow_unsafe = click.option(
     ),
 )
 
+ignore_installed = click.option(
+    "--ignore-installed/--no-ignore-installed",
+    is_flag=True,
+    default=True,
+)
+
 strip_extras = click.option(
     "--strip-extras/--no-strip-extras",
     is_flag=True,

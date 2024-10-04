@@ -488,12 +488,14 @@ class BacktrackingResolver(BaseResolver):
         repository: BaseRepository,
         allow_unsafe: bool = False,
         unsafe_packages: set[str] | None = None,
+        ignore_installed: bool = True,
         **kwargs: Any,
     ) -> None:
         self.constraints = list(constraints)
         self.repository = repository
         self.allow_unsafe = allow_unsafe
         self.unsafe_packages = unsafe_packages or UNSAFE_PACKAGES
+        self.ignore_installed = ignore_installed
 
         options = self.options = self.repository.options
         self.session = self.repository.session
@@ -580,7 +582,7 @@ class BacktrackingResolver(BaseResolver):
                 options=self.options,
                 wheel_cache=wheel_cache,
                 use_user_site=False,
-                ignore_installed=True,
+                ignore_installed=self.ignore_installed,
                 ignore_requires_python=False,
                 force_reinstall=False,
                 use_pep517=self.options.use_pep517,
